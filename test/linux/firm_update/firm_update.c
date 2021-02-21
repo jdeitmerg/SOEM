@@ -119,7 +119,7 @@ void boottest(char *ifname, uint16 slave, char *filename)
 				{
 					printf("File read OK, %d bytes.\n",filesize);
 					printf("FoE write....");
-					j = ec_FOEwrite(slave, filename, 0, filesize , &filebuffer, EC_TIMEOUTSTATE);
+					j = ec_FOEwrite(slave, filename, 0, filesize , &filebuffer, 10000000);
 					printf("result %d.\n",j);
 					printf("Request init state for slave %d\n", slave);
 					ec_slave[slave].state = EC_STATE_INIT;
@@ -128,6 +128,9 @@ void boottest(char *ifname, uint16 slave, char *filename)
 				else
 				    printf("File not read OK.\n");
 			}
+                        else {
+                            printf("Unable to get slave %d into BOOT.\n", slave);
+                        }
 
 		}
 		else
