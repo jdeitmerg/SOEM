@@ -65,7 +65,7 @@ void boottest(char *ifname, uint16 slave, char *filename)
 
 			printf("Request init state for slave %d\n", slave);
 			ec_slave[slave].state = EC_STATE_INIT;
-			ec_writestate(slave);
+			while(ec_writestate(slave) != 1);
 
 			/* wait for slave to reach INIT state */
 			ec_statecheck(slave, EC_STATE_INIT,  EC_TIMEOUTSTATE * 4);
@@ -108,7 +108,7 @@ void boottest(char *ifname, uint16 slave, char *filename)
 
 			printf("Request BOOT state for slave %d\n", slave);
 			ec_slave[slave].state = EC_STATE_BOOT;
-			ec_writestate(slave);
+			while(ec_writestate(slave) != 1);
 
 			/* wait for slave to reach BOOT state */
 			if (ec_statecheck(slave, EC_STATE_BOOT,  EC_TIMEOUTSTATE * 10) == EC_STATE_BOOT)
